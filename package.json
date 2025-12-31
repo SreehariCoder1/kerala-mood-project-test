@@ -1,8 +1,9 @@
 {
     "private": true,
     "scripts": {
-        "build": "echo 'No root build script needed for Vercel legacy builds'",
-        "install": "cd client && npm install && cd ../server && npm install"
+        "install-dependencies": "cd client && npm install && cd ../server && npm install",
+        "build": "cd client && npm run build",
+        "start": "cd server && node index.js"
     },
     "engines": {
         "node": "22.x"

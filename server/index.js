@@ -7,6 +7,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('./config/passport');
+const path = require('path'); // Added path module
 
 const app = express();
 
@@ -35,7 +36,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000; // Moved PORT definition here
 
 // Connect to MongoDB
 const connectDB = async () => {
@@ -64,12 +65,21 @@ const moodRoutes = require('./routes/moodRoutes');
 app.use('/api/auth', authRoutes);
 app.use('/api/moods', moodRoutes);
 
-// For local dev
-if (require.main === module) {
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
+// Serve static files in production
+if (process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static(path.join(__dirname, '../client/dist')));
+
+    // Handle SPA routing - return index.html for any unknown route
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
     });
 }
+
+// Start the server
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
 // Export for Vercel
 module.exports = app;
