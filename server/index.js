@@ -16,7 +16,7 @@ app.use(cookieParser());
 app.use(cors({
     origin: [
         process.env.CLIENT_URL,
-        'https://kerala-mood-project-test1.onrender.com',
+        'https://kerala-mood-project-testing.vercel.app',
         'http://localhost:5173'
     ].filter(Boolean),
     credentials: true
@@ -71,7 +71,7 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/dist')));
 
     // Handle SPA routing - return index.html for any unknown route
-    app.get('*', (req, res) => {
+    app.get(/.*/, (req, res) => {
         res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
     });
 }
