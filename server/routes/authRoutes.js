@@ -146,7 +146,7 @@ router.get('/google',
 // @route   GET /api/auth/google/callback
 // @desc    Google OAuth callback
 router.get('/google/callback',
-    passport.authenticate('google', { session: false, failureRedirect: process.env.CLIENT_URL || 'https://kerala-mood-project-testing.vercel.app' }),
+    passport.authenticate('google', { session: false, failureRedirect: process.env.CLIENT_URL || 'https://kerala-mood-project-test1.onrender.com' }),
     (req, res) => {
         try {
             // Create JWT token
@@ -164,11 +164,11 @@ router.get('/google/callback',
             });
 
             // Redirect to frontend with token
-            const clientURL = process.env.CLIENT_URL || 'https://kerala-mood-project-testing.vercel.app';
+            const clientURL = process.env.CLIENT_URL || 'https://kerala-mood-project-test1.onrender.com';
             res.redirect(`${clientURL}?token=${token}`);
         } catch (error) {
             console.error('Google callback error:', error);
-            res.redirect(`${process.env.CLIENT_URL || 'https://kerala-mood-project-testing.vercel.app'}?error=auth_failed`);
+            res.redirect(`${process.env.CLIENT_URL || 'https://kerala-mood-project-test1.onrender.com'}?error=auth_failed`);
         }
     }
 );

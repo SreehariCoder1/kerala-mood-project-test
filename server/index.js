@@ -16,7 +16,7 @@ app.use(cookieParser());
 app.use(cors({
     origin: [
         process.env.CLIENT_URL,
-        'https://kerala-mood-project-testing.vercel.app',
+        'https://kerala-mood-project-test1.onrender.com',
         'http://localhost:5173'
     ].filter(Boolean),
     credentials: true
